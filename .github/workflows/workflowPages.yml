@@ -38,6 +38,12 @@ jobs:
           cd projeto-dados
           ng build
 
+      - name: Upload de build
+              uses: actions/upload-artifact@v2
+              with:
+                name: meu-build
+                path: 'projeto-dados/dist/projeto-dados'
+
   deploy-pages:
     needs: build-angular
     environment:
@@ -51,11 +57,16 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
 
+      - name: Download do build
+        uses: actions/download-artifact@v2
+        with:
+          name: meu-build
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           # Upload entire repository
-          path: 'projeto-dados/dist/projeto-dados/'
+          path: '/github/workspace/meu-build/'
 
       - name: Deploy to GitHub Pages
         id: deployment
