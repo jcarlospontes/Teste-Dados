@@ -62,11 +62,21 @@ jobs:
         with:
           name: meu-build
 
+      - name: verificando local
+        run: |
+          pwd
+          ls
+          cd meu-build
+          pwd
+          ls
+          cd projeto-dados
+          ls
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           # Upload entire repository
-          path: '/github/workspace/meu-build/'
+          path: 'meu-build/'
 
       - name: Deploy to GitHub Pages
         id: deployment
