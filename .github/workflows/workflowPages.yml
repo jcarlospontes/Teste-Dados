@@ -39,10 +39,10 @@ jobs:
           ng build
 
       - name: Upload de build
-              uses: actions/upload-artifact@v2
-              with:
-                name: meu-build
-                path: 'projeto-dados/dist/projeto-dados'
+        uses: actions/upload-artifact@v2
+        with:
+          name: meu-build
+          path: 'projeto-dados/dist/projeto-dados'
 
   deploy-pages:
     needs: build-angular
