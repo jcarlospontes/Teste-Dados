@@ -38,6 +38,7 @@ jobs:
           ng build
 
   deploy-pages:
+    needs: build-angular
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
