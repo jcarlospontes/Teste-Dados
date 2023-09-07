@@ -13,6 +13,10 @@ permissions:
   
 jobs:
   build-angular:
+    needs: build-angular
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -38,39 +42,14 @@ jobs:
           cd projeto-dados
           ng build
 
-      - name: Upload de build
-        uses: actions/upload-artifact@v2
-        with:
-          name: meu-build
-          path: 'projeto-dados/dist/projeto-dados'
-
-  deploy-pages:
-    needs: build-angular
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Setup Pages
         uses: actions/configure-pages@v3
-
-      - name: Download do build
-        uses: actions/download-artifact@v2
-        with:
-          name: meu-build
-
-      - name: verificando local
-        run: |
-          ls meu-build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
           # Upload entire repository
-          path: 'meu-build'
+          path: 'projeto-dados/dist/projeto-dados/'
 
       - name: Deploy to GitHub Pages
         id: deployment
