@@ -35,6 +35,7 @@ jobs:
       
       - name: Fazendo Build do Angular
         run: |
+          cd projeto-dados
           ng build
 
   deploy-pages:
